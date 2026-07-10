@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>MERLIN ARCANA — El futuro no se espera, se construye</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Merlin Arcana es una herramienta patrimonial construida sobre crecimiento, protección y utilidad.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,450;1,9..144,500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#12151C;
+    --void-2:#171B24;
+    --parchment:#EAE3D3;
+    --parchment-dim:#B9B0A0;
+    --ink:#1C1B17;
+    --ink-soft:#4A473E;
+    --gold:#B4924F;
+    --gold-bright:#D4B672;
+    --verdigris:#6E8F7C;
+    --sigil-rust:#9C5A47;
+    --slate:#5A729A;
+    --line-dark:rgba(234,227,211,0.14);
+    --line-light:rgba(28,27,23,0.12);
+    --paper:#F6F2E9;
+    --display:'Fraunces', Georgia, serif;
+    --sans:'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+    --mono:'IBM Plex Mono', 'Courier New', monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--sans);
+    color:var(--ink);
+    background:var(--paper);
+    font-weight:300;
+    line-height:1.7;
+    font-size:16px;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .container{max-width:1160px;margin:0 auto;padding:0 32px}
+
+  ::selection{background:var(--gold);color:var(--void)}
+
+  /* ---------- REVEAL ---------- */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease}
+  .reveal.in-view{opacity:1;transform:translateY(0)}
+  @media (prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    *{animation:none !important}
+  }
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky;top:0;z-index:200;
+    background:rgba(246,242,233,0.9);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line-light);
+  }
+  .nav-inner{
+    max-width:1160px;margin:0 auto;padding:20px 32px;
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .brand{display:flex;align-items:center;gap:12px}
+  .sigil{width:30px;height:30px;flex:none}
+  .brand-word{
+    font-family:var(--display);font-size:19px;font-weight:600;
+    letter-spacing:.06em;color:var(--ink);text-transform:uppercase;
+  }
+  nav.links ul{list-style:none;display:flex;gap:36px;font-size:12.5px;font-weight:500;letter-spacing:.09em;text-transform:uppercase}
+  nav.links a{color:var(--ink-soft);transition:color .2s;padding-bottom:3px;border-bottom:1px solid transparent}
+  nav.links a:hover{color:var(--ink);border-color:var(--gold)}
+  .nav-cta{
+    font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;
+    padding:9px 18px;border:1px solid var(--ink);color:var(--ink);
+    transition:background .2s,color .2s;white-space:nowrap;
+  }
+  .nav-cta:hover{background:var(--ink);color:var(--paper)}
+  .burger{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:4px}
+  .burger span{width:22px;height:1.5px;background:var(--ink)}
+  .mobile-panel{display:none}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    background:var(--void);
+    color:var(--parchment);
+    padding:130px 32px 110px;
+    overflow:hidden;
+    border-bottom:1px solid rgba(180,146,79,.25);
+  }
+  .hero-astrolabe{
+    position:absolute;right:-140px;top:50%;transform:translateY(-50%);
+    width:640px;height:640px;opacity:.55;pointer-events:none;
+  }
+  .hero-astrolabe .bezel{
+    position:absolute;inset:0;border-radius:50%;
+    background:repeating-conic-gradient(rgba(180,146,79,.5) 0deg 0.6deg, transparent 0.6deg 6deg);
+    animation:spin 140s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .hero-inner{position:relative;z-index:2;max-width:1160px;margin:0 auto}
+  .hero-eyebrow{
+    font-family:var(--mono);font-size:12px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--gold-bright);margin-bottom:28px;display:flex;align-items:center;gap:12px;
+  }
+  .hero-eyebrow::before{content:"";width:26px;height:1px;background:var(--gold-bright)}
+  .hero h1{
+    font-family:var(--display);font-weight:450;
+    font-size:clamp(42px,6vw,74px);line-height:1.06;color:var(--parchment);
+    max-width:780px;letter-spacing:-.01em;
+  }
+  .hero h1 em{font-style:italic;font-weight:500;color:var(--gold-bright)}
+  .hero-sub{margin-top:30px;max-width:560px;font-size:17.5px;color:var(--parchment-dim);line-height:1.75;font-weight:300}
+  .hero-meta{margin-top:56px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .phase-pill{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;
+    padding:9px 16px;border:1px solid rgba(234,227,211,.28);color:var(--parchment-dim);
+  }
+  .phase-pill .dot{width:6px;height:6px;border-radius:50%;background:var(--verdigris)}
+  .phase-pill.active{border-color:var(--gold-bright);color:var(--parchment)}
+  .phase-pill.active .dot{background:var(--gold-bright);box-shadow:0 0 0 3px rgba(212,182,114,.18)}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:110px 32px;border-bottom:1px solid var(--line-light)}
+  .section-label{
+    font-family:var(--mono);font-size:12px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--sigil-rust);margin-bottom:20px;
+  }
+  .section-title{
+    font-family:var(--display);font-weight:450;
+    font-size:clamp(30px,3.6vw,46px);line-height:1.16;color:var(--ink);
+    max-width:760px;letter-spacing:-.005em;
+  }
+  .lede{margin-top:22px;max-width:640px;font-size:17px;color:var(--ink-soft);font-weight:300;line-height:1.75}
+
+  /* ---------- PROPÓSITO ---------- */
+  .proposito-grid{display:grid;grid-template-columns:.9fr 1.3fr;gap:72px;margin-top:56px;align-items:start}
+  .pull{
+    font-family:var(--display);font-style:italic;font-weight:450;
+    font-size:26px;line-height:1.35;color:var(--ink);
+    border-left:2px solid var(--gold);padding-left:24px;
+  }
+  .pull-cite{margin-top:16px;font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--sigil-rust);text-transform:uppercase}
+  .prop-text p{margin-bottom:20px;font-size:16px;color:var(--ink-soft);font-weight:300}
+  .prop-text p:first-child{font-size:18.5px;color:var(--ink);font-weight:400}
+
+  /* ---------- VISIÓN / ORBIT ---------- */
+  .vision-wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:60px}
+  .orbit-box{position:relative;width:100%;aspect-ratio:1/1;max-width:480px;margin:0 auto}
+  .orbit-bezel{
+    position:absolute;inset:8%;border-radius:50%;
+    background:repeating-conic-gradient(var(--line-light) 0deg 0.7deg, transparent 0.7deg 7.5deg);
+    animation:spin 90s linear infinite;
+  }
+  .orbit-svg{position:relative;z-index:2;width:100%;height:100%;overflow:visible}
+  .pillars{display:flex;flex-direction:column;gap:0}
+  .pillar{padding:26px 0;border-top:1px solid var(--line-light)}
+  .pillar:last-child{border-bottom:1px solid var(--line-light)}
+  .pillar-head{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+  .pillar-dot{width:9px;height:9px;border-radius:50%;flex:none}
+  .pillar h3{font-family:var(--display);font-weight:500;font-size:21px;color:var(--ink)}
+  .pillar p{font-size:14.5px;color:var(--ink-soft);font-weight:300;line-height:1.75;padding-left:21px}
+  .cycle-line{
+    margin-top:44px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+    font-family:var(--mono);font-size:12px;letter-spacing:.05em;color:var(--ink-soft);
+  }
+  .cycle-line b{color:var(--ink);font-weight:500}
+  .cycle-line .arrow{color:var(--gold)}
+
+  /* ---------- FILOSOFÍA (dark) ---------- */
+  .philo{background:var(--void);color:var(--parchment);border-bottom:1px solid rgba(180,146,79,.2)}
+  .philo .section-label{color:var(--gold-bright)}
+  .philo .section-title{color:var(--parchment);max-width:820px}
+  .philo-quote{
+    margin-top:44px;font-family:var(--display);font-style:italic;font-weight:450;
+    font-size:clamp(22px,2.6vw,32px);line-height:1.4;color:var(--gold-bright);max-width:820px;
+  }
+  .philo-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;margin-top:64px}
+  .values-list{list-style:none}
+  .values-list li{
+    padding:16px 0;border-top:1px solid rgba(234,227,211,.14);
+    font-family:var(--display);font-style:italic;font-size:19px;color:var(--parchment);
+  }
+  .values-list li:last-child{border-bottom:1px solid rgba(234,227,211,.14)}
+  .creed{display:flex;flex-direction:column;gap:14px}
+  .creed span{
+    font-family:var(--mono);font-size:13px;color:var(--parchment-dim);letter-spacing:.02em;
+    padding-left:18px;position:relative;
+  }
+  .creed span::before{content:"◆";position:absolute;left:0;top:0;color:var(--sigil-rust);font-size:9px;top:5px}
+  .philo-close{margin-top:60px;max-width:640px;font-size:16px;color:var(--parchment-dim);font-weight:300;line-height:1.8}
+  .philo-close strong{color:var(--parchment);font-weight:500}
+
+  /* ---------- FASES / ROADMAP ---------- */
+  .phases{margin-top:60px}
+  .phase-row{
+    display:grid;grid-template-columns:120px 1fr 160px;gap:32px;align-items:start;
+    padding:38px 0;border-top:1px solid var(--line-light);
+  }
+  .phase-row:last-child{border-bottom:1px solid var(--line-light)}
+  .phase-num{font-family:var(--mono);font-size:13px;color:var(--sigil-rust);letter-spacing:.06em;padding-top:4px}
+  .phase-body h3{font-family:var(--display);font-weight:500;font-size:24px;color:var(--ink);margin-bottom:12px}
+  .phase-body p{font-size:15.5px;color:var(--ink-soft);font-weight:300;max-width:560px}
+  .phase-status{
+    justify-self:end;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    padding:7px 14px;border:1px solid var(--line-light);color:var(--ink-soft);height:fit-content;white-space:nowrap;
+  }
+  .phase-status.on{border-color:var(--verdigris);color:var(--verdigris)}
+
+  /* ---------- CONTACTO ---------- */
+  .contact{background:var(--void-2);color:var(--parchment)}
+  .contact .section-label{color:var(--gold-bright)}
+  .contact .section-title{color:var(--parchment)}
+  .contact-wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:64px;margin-top:52px;align-items:start}
+  .contact-text p{color:var(--parchment-dim);font-size:15.5px;font-weight:300;margin-bottom:18px;max-width:460px}
+  .contact-form{display:flex;flex-direction:column;gap:14px}
+  .contact-form label{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--parchment-dim)}
+  .contact-form input{
+    background:transparent;border:none;border-bottom:1px solid rgba(234,227,211,.28);
+    padding:11px 2px;color:var(--parchment);font-family:var(--sans);font-size:15px;font-weight:300;
+  }
+  .contact-form input:focus{outline:none;border-color:var(--gold-bright)}
+  .contact-form input::placeholder{color:rgba(234,227,211,.35)}
+  .contact-form button{
+    margin-top:14px;align-self:flex-start;
+    font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+    padding:13px 26px;background:var(--gold-bright);color:var(--void);border:none;cursor:pointer;
+    transition:opacity .2s;
+  }
+  .contact-form button:hover{opacity:.85}
+  .contact-form .note{margin-top:16px;font-size:12.5px;color:var(--parchment-dim);opacity:.8;max-width:400px}
+  .contact-form .form-status{display:none;margin-top:12px;font-family:var(--mono);font-size:12px;letter-spacing:.05em;padding:10px 14px;border:1px solid transparent}
+  .contact-form .form-status.ok{display:block;color:#9DBFA5;border-color:rgba(157,191,165,.4)}
+  .contact-form .form-status.error{display:block;color:#C98A76;border-color:rgba(201,138,118,.4)}
+  .contact-form button:disabled{opacity:.55;cursor:wait}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--void);color:var(--parchment-dim);padding:70px 32px 36px}
+  .foot-inner{max-width:1160px;margin:0 auto}
+  .foot-top{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:56px;padding-bottom:44px;border-bottom:1px solid rgba(234,227,211,.14)}
+  .foot-brand{font-family:var(--display);font-size:20px;font-weight:600;color:var(--parchment);letter-spacing:.04em;text-transform:uppercase;margin-bottom:14px}
+  .foot-tagline{font-size:13.5px;line-height:1.7;max-width:320px;font-weight:300}
+  .foot-col h5{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--parchment);margin-bottom:16px}
+  .foot-col a{display:block;font-size:13.5px;margin-bottom:11px;color:var(--parchment-dim);transition:color .2s}
+  .foot-col a:hover{color:var(--gold-bright)}
+  .disclaimer{margin-top:32px;font-size:12px;line-height:1.8;color:rgba(185,176,160,.7);max-width:980px;font-weight:300}
+  .copyright{margin-top:28px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:var(--mono);font-size:11.5px;color:rgba(185,176,160,.6)}
+
+  /* ---------- WHATSAPP FAB ---------- */
+  .whatsapp-fab{
+    position:fixed;right:26px;bottom:26px;z-index:400;
+    width:58px;height:58px;border-radius:50%;
+    background:#1F1F1F;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 20px rgba(0,0,0,.28);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .whatsapp-fab:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 10px 26px rgba(0,0,0,.34)}
+  @media (max-width:600px){
+    .whatsapp-fab{right:18px;bottom:18px;width:52px;height:52px}
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:880px){
+    nav.links, .nav-cta{display:none}
+    .burger{display:flex}
+    .mobile-panel.open{
+      display:block;position:fixed;inset:0 0 0 auto;width:78vw;max-width:340px;
+      background:var(--void);color:var(--parchment);z-index:300;padding:100px 32px 40px;
+    }
+    .mobile-panel ul{list-style:none;display:flex;flex-direction:column;gap:26px;font-family:var(--display);font-size:22px}
+    .mobile-panel a{color:var(--parchment)}
+    .mobile-close{position:absolute;top:26px;right:28px;background:none;border:none;color:var(--parchment);font-size:22px;cursor:pointer}
+
+    .proposito-grid,.vision-wrap,.philo-grid,.contact-wrap{grid-template-columns:1fr}
+    .hero-astrolabe{width:420px;height:420px;right:-180px;opacity:.4}
+    .phase-row{grid-template-columns:1fr;gap:10px}
+    .phase-status{justify-self:start}
+    .foot-top{grid-template-columns:1fr;gap:32px}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand">
+      <svg class="sigil" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="18" stroke="#1C1B17" stroke-width="1"/>
+        <circle cx="20" cy="20" r="3" fill="#B4924F"/>
+        <circle cx="20" cy="6" r="2.4" fill="#6E8F7C"/>
+        <circle cx="31" cy="27" r="2.4" fill="#9C5A47"/>
+        <circle cx="9" cy="27" r="2.4" fill="#5A729A"/>
+      </svg>
+      <span class="brand-word">Merlin Arcana</span>
+    </div>
+    <nav class="links">
+      <ul>
+        <li><a href="#proposito">Propósito</a></li>
+        <li><a href="#vision">Visión</a></li>
+        <li><a href="#filosofia">Filosofía</a></li>
+        <li><a href="#fases">Fases</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+    <a href="#contacto" class="nav-cta">Sumarse a la lista</a>
+    <button class="burger" id="burgerBtn" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-panel" id="mobilePanel">
+    <button class="mobile-close" id="mobileClose">✕</button>
+    <ul>
+      <li><a href="#proposito">Propósito</a></li>
+      <li><a href="#vision">Visión</a></li>
+      <li><a href="#filosofia">Filosofía</a></li>
+      <li><a href="#fases">Fases</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" style="border-bottom:none;padding-bottom:110px">
+  <div class="hero-astrolabe"><div class="bezel"></div></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Herramienta patrimonial · México · 2026</div>
+    <h1>El futuro no se espera, <em>se construye.</em></h1>
+    <p class="hero-sub">Merlin Arcana transforma tiempo, disciplina, conocimiento y colaboración en una estructura patrimonial pensada para crecer, protegerse y generar utilidad real para quienes la construyen.</p>
+    <div class="hero-meta">
+      <span class="phase-pill active"><span class="dot"></span>Fase 01 — Informativa · activa</span>
+      <span class="phase-pill"><span class="dot"></span>Fase 02 — Salud de billeteras</span>
+      <span class="phase-pill"><span class="dot"></span>Fase 03 — Educación fiscal</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROPÓSITO -->
+<section id="proposito">
+  <div class="container">
+    <div class="section-label">Propósito</div>
+    <h2 class="section-title reveal">Una convicción sencilla, sostenida con disciplina.</h2>
+    <div class="proposito-grid">
+      <div class="reveal">
+        <p class="pull">"El tiempo es el recurso más valioso que poseemos. Es limitado, irremplazable y avanza para todos por igual."</p>
+        <div class="pull-cite">— Sobre el propósito de Merlin Arcana</div>
+      </div>
+      <div class="prop-text reveal">
+        <p>A lo largo de nuestra vida dedicamos tiempo, esfuerzo y energía para crear estabilidad, seguridad y bienestar. Pocas veces nos detenemos a reflexionar sobre la relación entre aquello que obtenemos y aquello que entregamos a cambio.</p>
+        <p>Merlin Arcana surge de la inquietud de encontrar una mejor manera de administrar ese esfuerzo. No nace únicamente como una estructura patrimonial, sino como una herramienta orientada a transformar conocimiento, disciplina, visión y colaboración en oportunidades capaces de generar valor para quienes comparten una misma filosofía.</p>
+        <p>Es el resultado de una decisión consciente: participar activamente en la construcción del futuro en lugar de limitarse a observar cómo cambia el mundo. Más que buscar convencer, Merlin Arcana busca coincidir con personas que compartan una visión similar sobre el valor del tiempo y la importancia de construir con intención aquello que deseamos preservar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISIÓN -->
+<section id="vision">
+  <div class="container">
+    <div class="section-label">Visión</div>
+    <h2 class="section-title reveal">Un patrimonio sólido necesita equilibrio.</h2>
+    <p class="lede reveal">La estructura del proyecto se sostiene sobre tres pilares de importancia equivalente, que no se suceden uno al otro: giran juntos, en el mismo ciclo.</p>
+
+    <div class="vision-wrap">
+      <div class="orbit-box reveal">
+        <div class="orbit-bezel"></div>
+        <svg class="orbit-svg" viewBox="0 0 400 400">
+          <defs>
+            <filter id="emblemGlow" x="-50%" y="-50%" width="200%" height="200%">
+              <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#B4924F" flood-opacity="0.35"/>
+            </filter>
+          </defs>
+
+          <!-- crest ring -->
+          <circle cx="200" cy="200" r="178" fill="none" stroke="#B4924F" stroke-width="1.1" opacity="0.5"/>
+          <circle cx="200" cy="200" r="171" fill="none" stroke="#B4924F" stroke-width="2.2"/>
+
+          <!-- tinted wedges: Crecimiento / Protección / Utilidad -->
+          <path d="M 200.00 35.00 A 165 165 0 0 1 342.89 282.50 L 293.53 254.00 A 108 108 0 0 0 200.00 92.00 Z" fill="#6E8F7C" fill-opacity="0.22" stroke="#B4924F" stroke-width="1.3"/>
+          <path d="M 342.89 282.50 A 165 165 0 0 1 57.11 282.50 L 106.47 254.00 A 108 108 0 0 0 293.53 254.00 Z" fill="#9C5A47" fill-opacity="0.22" stroke="#B4924F" stroke-width="1.3"/>
+          <path d="M 57.11 282.50 A 165 165 0 0 1 200.00 35.00 L 200.00 92.00 A 108 108 0 0 0 106.47 254.00 Z" fill="#5A729A" fill-opacity="0.22" stroke="#B4924F" stroke-width="1.3"/>
+
+          <!-- seam pips on the ring -->
+          <circle cx="200" cy="29" r="6" fill="#F6F2E9" stroke="#B4924F" stroke-width="1.6"/>
+          <circle cx="348.1" cy="285.5" r="6" fill="#F6F2E9" stroke="#B4924F" stroke-width="1.6"/>
+          <circle cx="51.9" cy="285.5" r="6" fill="#F6F2E9" stroke="#B4924F" stroke-width="1.6"/>
+
+          <!-- Crecimiento: growth arrow -->
+          <g transform="translate(301,115)" stroke="#4E6E5D" stroke-width="2.3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 30 L14 18 L21 24 L32 8"/>
+            <path d="M23 8H32V17"/>
+          </g>
+
+          <!-- Protección: shield -->
+          <g transform="translate(183,317)" stroke="#7C4433" stroke-width="2.3" fill="none" stroke-linejoin="round">
+            <path d="M17 2 L30 7 V17 C30 26 24 32 17 35 C10 32 4 26 4 17 V7 Z"/>
+          </g>
+
+          <!-- Utilidad: gear -->
+          <g transform="translate(82,132)" stroke="#42597A" stroke-width="2.1" fill="none">
+            <circle r="7"/>
+            <circle r="2.2" fill="#42597A" stroke="none"/>
+            <g stroke-linecap="round">
+              <line x1="0" y1="-13" x2="0" y2="-9"/>
+              <line x1="0" y1="13" x2="0" y2="9"/>
+              <line x1="-13" y1="0" x2="-9" y2="0"/>
+              <line x1="13" y1="0" x2="9" y2="0"/>
+              <line x1="9.2" y1="-9.2" x2="6.4" y2="-6.4"/>
+              <line x1="-9.2" y1="9.2" x2="-6.4" y2="6.4"/>
+              <line x1="-9.2" y1="-9.2" x2="-6.4" y2="-6.4"/>
+              <line x1="9.2" y1="9.2" x2="6.4" y2="6.4"/>
+            </g>
+          </g>
+
+          <text x="352" y="107" text-anchor="start" font-family="IBM Plex Mono" font-weight="500" font-size="12" letter-spacing="0.5" fill="#1C1B17">Crecimiento</text>
+          <text x="200" y="386" text-anchor="middle" font-family="IBM Plex Mono" font-weight="500" font-size="12" letter-spacing="0.5" fill="#1C1B17">Protección</text>
+          <text x="48" y="107" text-anchor="end" font-family="IBM Plex Mono" font-weight="500" font-size="12" letter-spacing="0.5" fill="#1C1B17">Utilidad</text>
+
+          <!-- center medallion -->
+          <circle cx="200" cy="200" r="104" fill="#12151C" stroke="#B4924F" stroke-width="1.6" filter="url(#emblemGlow)"/>
+          <circle cx="200" cy="200" r="98" fill="none" stroke="#B4924F" stroke-width="0.6" opacity="0.5"/>
+          <path d="M 200.00 122.00 L 267.55 239.00 L 132.45 239.00 Z" fill="none" stroke="#D4B672" stroke-width="1.5"/>
+          <path d="M200 100 L203 111 L214 114 L203 117 L200 128 L197 117 L186 114 L197 111 Z" fill="#D4B672"/>
+          <text x="200" y="206" text-anchor="middle" font-family="Fraunces" font-weight="600" font-size="40" fill="#EAE3D3">M</text>
+          <text x="200" y="230" text-anchor="middle" font-family="IBM Plex Mono" font-size="7.5" letter-spacing="2.5" fill="#B4924F">MERLIN ARCANA</text>
+        </svg>
+      </div>
+
+      <div class="pillars reveal">
+        <div class="pillar">
+          <div class="pillar-head"><span class="pillar-dot" style="background:#6E8F7C"></span><h3>Crecimiento</h3></div>
+          <p>La búsqueda constante de oportunidades capaces de impulsar el desarrollo del patrimonio: identificar, analizar y participar en aquello que genera valor a través del conocimiento, la preparación y una visión de largo plazo.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-head"><span class="pillar-dot" style="background:#9C5A47"></span><h3>Protección</h3></div>
+          <p>La preservación de aquello que se ha construido. Fortalece la estabilidad de la estructura patrimonial, aporta resiliencia frente a la incertidumbre y da continuidad a través del tiempo.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-head"><span class="pillar-dot" style="background:#5A729A"></span><h3>Utilidad</h3></div>
+          <p>El propósito práctico del patrimonio: que el valor generado no permanezca como una cifra, sino que se convierta en herramientas y beneficios reales para la calidad de vida y la administración responsable de los recursos.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cycle-line reveal">
+      <b>El crecimiento</b> necesita protección para perdurar <span class="arrow">→</span>
+      <b>la protección</b> necesita crecimiento para mantenerse vigente <span class="arrow">→</span>
+      <b>ambos</b> encuentran sentido cuando generan utilidad.
+    </div>
+  </div>
+</section>
+
+<!-- FILOSOFÍA -->
+<section id="filosofia" class="philo">
+  <div class="container">
+    <div class="section-label">Filosofía</div>
+    <h2 class="section-title reveal">Toda herramienta refleja la intención de quienes la construyen.</h2>
+    <p class="philo-quote reveal">La intención detrás de Merlin Arcana nunca ha sido la búsqueda del dinero como un fin en sí mismo.</p>
+
+    <div class="philo-grid">
+      <div class="reveal">
+        <ul class="values-list">
+          <li>Valoran la tranquilidad de sus hogares.</li>
+          <li>Valoran la posibilidad de compartir momentos con quienes aman.</li>
+          <li>Valoran la libertad de decidir con menos miedo y mayor claridad.</li>
+          <li>Valoran el tiempo.</li>
+        </ul>
+      </div>
+      <div class="reveal">
+        <div class="creed">
+          <span>Creemos en el conocimiento aplicado.</span>
+          <span>Creemos en la responsabilidad individual.</span>
+          <span>Creemos en el valor de la colaboración.</span>
+          <span>Creemos en la importancia de prepararnos para el futuro.</span>
+          <span>Creemos que la verdadera prosperidad no consiste únicamente en acumular más recursos, sino en construir una vida con mayor equilibrio y libertad.</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="philo-close reveal">Entendemos el patrimonio como un instrumento y no como un destino: <strong>un instrumento para construir, para proteger, para ayudar y para crear oportunidades</strong> — y, sobre todo, para disponer de mayor libertad y dedicar la vida a lo que consideramos verdaderamente importante.</p>
+  </div>
+</section>
+
+<!-- FASES -->
+<section id="fases">
+  <div class="container">
+    <div class="section-label">Fases del proyecto</div>
+    <h2 class="section-title reveal">Un proyecto que se construye por etapas.</h2>
+    <p class="lede reveal">Merlin Arcana no se lanza completo: se construye en público, un pilar a la vez. Así es como avanza.</p>
+
+    <div class="phases">
+      <div class="phase-row reveal">
+        <div class="phase-num">01 / MMXXVI</div>
+        <div class="phase-body">
+          <h3>Informativa</h3>
+          <p>El sitio en el que estás ahora: propósito, visión y filosofía del proyecto, sin promoción ni oferta pública de producto financiero alguno. El punto de partida para quien quiere entender antes de participar.</p>
+        </div>
+        <div class="phase-status on">Activa</div>
+      </div>
+
+      <div class="phase-row reveal">
+        <div class="phase-num">02 / Próxima</div>
+        <div class="phase-body">
+          <h3>Salud de billeteras</h3>
+          <p>Registro individual para que cada usuario pueda observar el estado de su propia billetera: qué está generando y qué está produciendo, con información clara sobre su beneficio directo dentro de la estructura.</p>
+        </div>
+        <div class="phase-status">Por venir</div>
+      </div>
+
+      <div class="phase-row reveal">
+        <div class="phase-num">03 / Próxima</div>
+        <div class="phase-body">
+          <h3>Educación fiscal</h3>
+          <p>Contenido para entender las deducciones fiscales disponibles, qué implican en la práctica y cómo su uso adecuado impacta la economía personal de cada usuario.</p>
+        </div>
+        <div class="phase-status">Por venir</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto" class="contact" style="border-bottom:none">
+  <div class="container">
+    <div class="section-label">Contacto</div>
+    <h2 class="section-title reveal">Sé de los primeros en saberlo.</h2>
+    <div class="contact-wrap">
+      <div class="contact-text reveal">
+        <p>Cuando el panel de salud de billeteras y los contenidos de educación fiscal estén disponibles, avisaremos primero a quienes ya conocen el proyecto.</p>
+        <p>Este sitio tiene, por ahora, un carácter exclusivamente informativo. No constituye invitación, oferta ni promoción para participar en ningún esquema.</p>
+      </div>
+      <form class="contact-form reveal" id="contactForm">
+        <label for="e">Correo electrónico</label>
+        <input id="e" name="email" type="email" placeholder="tu@correo.com" required>
+        <!-- Honeypot anti-spam: invisible para humanos; los bots lo llenan y el envío se descarta -->
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit" id="contactSubmit">Sumarme a la lista</button>
+        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        <p class="note">Al enviarlo aceptas ser contactado sobre avances del proyecto. Sin spam, sin promesas de rendimiento.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-inner">
+    <div class="foot-top">
+      <div>
+        <div class="foot-brand">Merlin Arcana</div>
+        <p class="foot-tagline">Una herramienta patrimonial construida sobre crecimiento, protección y utilidad. Proyecto en construcción por etapas.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Navegación</h5>
+        <a href="#proposito">Propósito</a>
+        <a href="#vision">Visión</a>
+        <a href="#filosofia">Filosofía</a>
+        <a href="#fases">Fases</a>
+      </div>
+      <div class="foot-col">
+        <h5>Legal</h5>
+        <a href="#">Aviso de Privacidad</a>
+        <a href="#">Términos de Uso</a>
+        <a href="#">Política de Cookies</a>
+      </div>
+    </div>
+    <p class="disclaimer">El contenido de este sitio tiene fines exclusivamente informativos y educativos. No constituye asesoría financiera, fiscal ni legal, ni recomendación de inversión, ni invitación u oferta pública para contratar producto o servicio alguno. Las futuras secciones de salud de billeteras y educación fiscal, cuando estén disponibles, tendrán carácter informativo y no sustituirán la asesoría de un profesional certificado. Quien tome decisiones sobre su patrimonio es responsable de consultar a sus propios asesores.</p>
+    <div class="copyright">
+      <span>© 2026 Merlin Arcana · Todos los derechos reservados</span>
+      <span>Ciudad de México</span>
+    </div>
+  </div>
+</footer>
+
+<a
+  class="whatsapp-fab"
+  id="whatsappFab"
+  href="https://wa.me/525658436475?text=Hola%2C%20me%20interesa%20saber%20m%C3%A1s%20sobre%20Merlin%20Arcana."
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Escribir por WhatsApp"
+>
+  <svg viewBox="0 0 32 32" width="28" height="28" fill="none" aria-hidden="true">
+    <path d="M16.02 4C9.4 4 4 9.37 4 15.96c0 2.1.55 4.15 1.6 5.96L4 28l6.24-1.57a12.1 12.1 0 0 0 5.78 1.47h.01c6.62 0 12.02-5.37 12.02-11.96C28.05 9.37 22.65 4 16.02 4Z" fill="#25D366"/>
+    <path d="M22.1 19.1c-.32-.16-1.88-.92-2.17-1.03-.29-.1-.5-.16-.72.17-.21.32-.83 1.03-1.02 1.24-.19.21-.38.24-.7.08-.32-.16-1.36-.5-2.6-1.6-.96-.86-1.6-1.92-1.79-2.24-.19-.32-.02-.5.14-.65.14-.14.32-.38.48-.56.16-.19.21-.32.32-.54.11-.21.05-.4-.03-.56-.08-.16-.72-1.73-.98-2.37-.26-.62-.53-.54-.72-.55l-.62-.01c-.21 0-.56.08-.85.4-.29.32-1.12 1.1-1.12 2.67s1.15 3.09 1.31 3.3c.16.21 2.26 3.45 5.47 4.84.76.33 1.36.53 1.82.67.77.24 1.46.21 2.02.13.62-.09 1.88-.77 2.14-1.51.27-.75.27-1.38.19-1.51-.08-.13-.29-.21-.61-.37Z" fill="#fff"/>
+  </svg>
+</a>
+
+<script>
+  // ---------------------------------------------------------------
+  // ENVÍO DEL FORMULARIO — Formspree
+  // Este sitio es estático (GitHub Pages: sin backend, sin variables
+  // de entorno), así que el envío se hace vía Formspree. El endpoint
+  // de Formspree está DISEÑADO para ser público: no es un secreto, y
+  // Formspree aplica su propio anti-spam + el honeypot del formulario.
+  // Las notificaciones llegan a merlinarcana@merlinarcana.com (se
+  // configura en el panel de Formspree, no aquí).
+  //
+  // PASO PENDIENTE: crear el form en formspree.io y pegar abajo el
+  // endpoint, p. ej. "https://formspree.io/f/abcdwxyz".
+  // ---------------------------------------------------------------
+  const CONTACT_CONFIG = {
+    endpoint: "https://formspree.io/f/mzdlnddn" // ← pegar aquí el endpoint de Formspree (https://formspree.io/f/XXXXXXXX)
+  };
+
+  const contactForm = document.getElementById('contactForm');
+  const submitBtn = document.getElementById('contactSubmit');
+  const formStatus = document.getElementById('formStatus');
+
+  function setStatus(kind, msg) {
+    formStatus.className = 'form-status ' + kind;
+    formStatus.textContent = msg;
+  }
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (!CONTACT_CONFIG.endpoint) {
+        setStatus('error', 'El registro aún no está activo. Escríbenos por WhatsApp mientras tanto.');
+        return;
+      }
+
+      // Honeypot: si un bot llenó el campo oculto, fingimos éxito y no enviamos.
+      if (contactForm.elements['_gotcha'] && contactForm.elements['_gotcha'].value) {
+        setStatus('ok', 'Listo. Quedaste en la lista.');
+        contactForm.reset();
+        return;
+      }
+
+      const originalLabel = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Enviando…';
+      formStatus.className = 'form-status';
+
+      try {
+        const res = await fetch(CONTACT_CONFIG.endpoint, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(contactForm)
+        });
+
+        if (res.ok) {
+          setStatus('ok', 'Listo. Quedaste en la lista — te avisaremos antes que a nadie.');
+          contactForm.reset();
+        } else {
+          const data = await res.json().catch(() => null);
+          const detail = data && data.errors ? data.errors.map(er => er.message).join(', ') : '';
+          setStatus('error', detail || 'No se pudo registrar tu correo. Intenta de nuevo en un momento.');
+        }
+      } catch (err) {
+        setStatus('error', 'Error de conexión. Revisa tu internet e intenta de nuevo.');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalLabel;
+      }
+    });
+  }
+
+  // Mobile nav
+  const burger = document.getElementById('burgerBtn');
+  const panel = document.getElementById('mobilePanel');
+  const closeBtn = document.getElementById('mobileClose');
+  burger.addEventListener('click', () => panel.classList.add('open'));
+  closeBtn.addEventListener('click', () => panel.classList.remove('open'));
+  panel.querySelectorAll('a').forEach(a => a.addEventListener('click', () => panel.classList.remove('open')));
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    reveals.forEach(el => io.observe(el));
+  } else {
+    reveals.forEach(el => el.classList.add('in-view'));
+  }
+</script>
+
+</body>
+</html>
